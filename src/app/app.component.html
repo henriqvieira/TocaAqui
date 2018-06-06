@@ -2,9 +2,9 @@
   <div class="row justify-content-center">
     <h1>Toca Aqui </h1>
   </div>
-  <div *ngIf="(user | async)?.email" class="row justify-content-center">
+  <div *ngIf="validaToken()" class="row justify-content-center">
 <div class="media">
-  <img class="d-flex mr-3" width="60" src="{{ (user | async)?.photoURL }}" alt="Generic placeholder">
+  <img class="d-flex mr-3" width="60" src="https://graph.facebook.com/{{this.id}}/picture?type=normal" alt="Generic placeholder">
   <div class="media-body">
     <h5 class="mt-0"> {{(user | async)?.displayName}}</h5>
     <p class="mt-0">{{(user | async)?.email}} </p>
@@ -14,10 +14,13 @@
   </div>
   <br/>
   <div class="row justify-content-center">
-    <button (click)="loginFacebook()" class="btn btn-block btn-outline-primary">Login com Facebook</button>
+    <button (click)="loginWithOptions()" class="btn btn-block btn-outline-primary">Login com Facebook</button>
   </div>
   <div class="row justify-content-center">
-    <button (click)="getDados()" class="btn btn-block btn-outline-primary">Mostrar informação do facebook</button>
+    <button (click)="imprimeDados()" class="btn btn-block btn-outline-primary">Mostrar informação do facebook</button>
+  </div>
+  <div class="row justify-content-center">
+    <button (click)="getDados()" class="btn btn-block btn-outline-primary">Carrega Array</button>
   </div>
   <div class="row justify-content-center">
     <button (click)="abreEmailLogin = !abreEmailLogin" class="btn btn-block btn-outline-danger">Login com Email</button>
