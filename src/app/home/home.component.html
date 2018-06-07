@@ -1,0 +1,11 @@
+  <div *ngIf="validaToken()" class="row justify-content-center">
+<div class="media">
+  <img class="d-flex mr-3" width="60" src="https://graph.facebook.com/{{this.id}}/picture?type=normal" alt="Generic placeholder">
+  <div class="media-body">
+    <h5 class="mt-0"> {{usuario.name}}</h5>
+    <p class="mt-0">{{usuario.email}} </p>
+    <button (click)="sair()" class="btn btn-info">Sair</button>
+  </div>
+</div>
+  </div>
+<router-outlet></router-outlet>

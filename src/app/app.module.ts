@@ -11,6 +11,10 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AppComponent } from './app.component';
 
 import { FacebookModule } from 'ngx-facebook';
+import { HomeComponent } from './home/home.component';
+import { RouterModule, Routes } from "@angular/router";
+import { AppRoutingModule } from './/app-routing.module';
+import { LoginComponent } from './login/login.component';
 
 
 export const firebaseConfig = {
@@ -23,7 +27,9 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,10 @@ export const firebaseConfig = {
     FormsModule,
     HttpModule,
     AngularFireAuthModule,
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
+   // RouterModule.forRoot(appRoutes, {useHash: true}),
+    AppRoutingModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

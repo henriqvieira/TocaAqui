@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -11,19 +11,21 @@ import { Usuario } from "src/app/usuario";
 
 import { ActivatedRoute, Router } from "@angular/router";
 
-
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class AppComponent {
+export class LoginComponent implements OnInit {
+    ngOnInit() {
+    }
+
   user: Observable<firebase.User>;
   email: string;
   senha: string;
   id: string;
 
-  usuario = Usuario;
+  
 
   likes: Likes[] = [];
 
@@ -39,7 +41,7 @@ export class AppComponent {
     fb.init(initParams);
   }
 
-/*  loginFacebook() {
+  loginFacebook() {
     // this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
     this.fb.login()
       .then((res: LoginResponse) => {
@@ -49,7 +51,7 @@ export class AppComponent {
   }
 
   loginWithOptions() {
-
+    this.id= '';
     const loginOptions: LoginOptions = {
       enable_profile_selector: true,
       return_scopes: true,
@@ -58,18 +60,17 @@ export class AppComponent {
 
     this.fb.login(loginOptions)
       .then((res: LoginResponse) => {
-        this.router.navigate(['home'])
+        console.log(this.fb.getAuthResponse().userID);
         this.id = this.fb.getAuthResponse().userID;
       })
       .catch(this.handleError);
-    if (this.id != '0') {
+    if (this.fb.getLoginStatus()) {
+      console.log(this.id);
       this.router.navigate(['home'])
     };
   }
 
-  mostraToken() {
-    console.log(this.validaToken());
-  }
+
 
   mostraUsuario() {
     console.log(this.fb.getAuthResponse().userID);
@@ -82,14 +83,6 @@ export class AppComponent {
         console.log('Got the users profile', res);
       })
       .catch(this.handleError);
-  }
-
-  validaToken() {
-    if (this.fb.getAuthResponse()) {
-      return true;
-    }
-    else
-      return false;
   }
 
   getDados() {
@@ -108,18 +101,6 @@ export class AppComponent {
       .catch(this.handleError);
   }
 
-  getDadosUsuario() {
-    this.fb.api('/me?fields=id,name,email,likes,location')
-      .then((res: any) => {
-        this.usuario = res;
-      })
-      .catch(this.handleError);
-  }
-
-  imprimeDados() {
-    console.log(this.usuario);
-  }
-
   private handleError(error) {
     console.error('Error processing action', error);
   }
@@ -132,7 +113,6 @@ export class AppComponent {
 
   sair() {
     this.fb.logout();
-    this.router.navigate([''])
-
-  }*/
+    this.router.navigate(['login'])
+  }
 }
